@@ -1,6 +1,18 @@
-# OpenWebUI-Ollama-Cloud-Models-Custom
+# Open WebUI Community Collection
 
-Custom models, tools, and skills for [Open WebUI](https://github.com/open-webui/open-webui) running on cloud Ollama backends. Two purpose-built models — one opinionated engineer, one adaptive reasoning system — with the tools and skills wired to each.
+A community-driven collection of custom models, tools, and skills for [Open WebUI](https://github.com/open-webui/open-webui) running on cloud Ollama backends.
+
+**Add yours.** If you've built a model config, tool, or skill that works well — submit a PR. The goal is a shared library of ready-to-import components that anyone running Open WebUI + Ollama cloud can use immediately.
+
+## What's Here
+
+| Type | Count | Location |
+|------|-------|----------|
+| **Models** | 2 | `*.json` (root) |
+| **Tools** | 3 | `tools/` |
+| **Skills** | 4 | `skills/` |
+
+---
 
 ## Models
 
@@ -19,6 +31,8 @@ Axiom has a static personality: it assumes competence, leads with answers, and t
 
 **Capabilities:** web search, code interpreter, file upload, file context, citations
 
+**File:** [`axiom.json`](axiom.json)
+
 ---
 
 ### Sovereign
@@ -36,34 +50,115 @@ Sovereign monitors its own reasoning process. It flags assumptions, tags claims 
 
 **Capabilities:** web search, code interpreter, file upload, file context, citations
 
-#### Sovereign's Tools
+**File:** [`sovereign.json`](sovereign.json)
+
+---
+
+## Tools
 
 Installed via **Workspace > Tools > + Create a Tool** — paste each file's contents.
 
-| Tool | File | What it does |
-|------|------|-------------|
-| **Sovereign Memory** | [`tools/sovereign_memory.py`](tools/sovereign_memory.py) | Persistent memory across sessions. `remember`, `recall`, `forget` — stores user preferences, calibration, and context in SQLite. |
-| **Sovereign Clock** | [`tools/sovereign_clock.py`](tools/sovereign_clock.py) | Current date, time, timezone, and calendar context. Zero dependencies. |
-| **Sovereign Reader** | [`tools/sovereign_reader.py`](tools/sovereign_reader.py) | Deep web page reader. Fetches URLs, strips noise, extracts clean article text with citations. |
+| Tool | File | Used by | What it does |
+|------|------|---------|-------------|
+| **Sovereign Memory** | [`tools/sovereign_memory.py`](tools/sovereign_memory.py) | Sovereign | Persistent memory across sessions. `remember`, `recall`, `forget` — stores user preferences, calibration, and context in SQLite. |
+| **Sovereign Clock** | [`tools/sovereign_clock.py`](tools/sovereign_clock.py) | Sovereign | Current date, time, timezone, and calendar context. Zero dependencies. |
+| **Sovereign Reader** | [`tools/sovereign_reader.py`](tools/sovereign_reader.py) | Sovereign | Deep web page reader. Fetches URLs, strips noise, extracts clean article text with citations. |
 
-#### Sovereign's Skills
+---
 
-Imported via **Workspace > Skills > Import** — select each `.md` file. Then attach to Sovereign in **Model Builder > skill binding**.
+## Skills
 
-These are model-attached skills — Sovereign sees a lightweight manifest and lazy-loads full instructions via `view_skill` only when relevant. Zero context cost until needed.
+Imported via **Workspace > Skills > Import** — select each `.md` file. Then attach to a model in **Model Builder > skill binding**.
 
-| Skill | File | What it does |
-|-------|------|-------------|
-| **Self-Calibration - Sov** | [`skills/self-calibration.md`](skills/self-calibration.md) | Reads user signals (expertise, style, frustration), adapts behavior, persists calibration to memory. The engine behind "self-customizing." |
-| **Metacognitive Reasoning - Sov** | [`skills/metacognitive-reasoning.md`](skills/metacognitive-reasoning.md) | Assumption auditing, confidence-vs-evidence checks, pre-mortems, backtracking protocol. The engine behind "self-aware." |
-| **Tool Orchestration - Sov** | [`skills/tool-orchestration.md`](skills/tool-orchestration.md) | Decision framework for when to use memory vs clock vs reader, chaining patterns, memory hygiene. Connects the system prompt to the tools. |
-| **Adaptive Explanation - Sov** | [`skills/adaptive-explanation.md`](skills/adaptive-explanation.md) | Calibrated teaching strategies per expertise level, progressive disclosure, mid-conversation correction when it miscalibrates. |
+Skills are model-attached — the model sees a lightweight manifest and lazy-loads full instructions via `view_skill` only when relevant. Zero context cost until needed.
+
+| Skill | File | Used by | What it does |
+|-------|------|---------|-------------|
+| **Self-Calibration - Sov** | [`skills/self-calibration.md`](skills/self-calibration.md) | Sovereign | Reads user signals (expertise, style, frustration), adapts behavior, persists calibration to memory. |
+| **Metacognitive Reasoning - Sov** | [`skills/metacognitive-reasoning.md`](skills/metacognitive-reasoning.md) | Sovereign | Assumption auditing, confidence-vs-evidence checks, pre-mortems, backtracking protocol. |
+| **Tool Orchestration - Sov** | [`skills/tool-orchestration.md`](skills/tool-orchestration.md) | Sovereign | Decision framework for when to use memory vs clock vs reader, chaining patterns, memory hygiene. |
+| **Adaptive Explanation - Sov** | [`skills/adaptive-explanation.md`](skills/adaptive-explanation.md) | Sovereign | Calibrated teaching strategies per expertise level, progressive disclosure, mid-conversation correction. |
+
+---
+
+## Setup
+
+### Import a Model
+
+1. Open WebUI > **Workspace > Models > Import** (top right)
+2. Select any `.json` model config from this repo
+
+### Install Tools
+
+1. Open WebUI > **Workspace > Tools > + Create a Tool**
+2. Paste contents of the tool's `.py` file
+3. Save, then attach to the relevant model under **Tools**
+
+### Install Skills
+
+1. Open WebUI > **Workspace > Skills > Import**
+2. Select the `.md` skill file
+3. Attach to the relevant model under **skill binding**
+
+### Requirements
+
+- [Open WebUI](https://github.com/open-webui/open-webui) v0.8.0+ (skills require v0.8.0)
+- Ollama with cloud model access configured
+- Pull whatever base models the model configs reference (e.g. `kimi-k2.5:cloud`, `deepseek-v3.2:cloud`)
+
+---
+
+## Contributing
+
+This is a shared collection. Contributions welcome — models, tools, skills, or improvements to existing ones.
+
+### Adding a Model
+
+1. Build your model in Open WebUI's Model Builder
+2. Export as JSON
+3. Drop the `.json` file in the repo root
+4. Add a section under **Models** in this README with: base model, temperature, identity, what it's good at
+
+### Adding a Tool
+
+1. Create your tool (`.py` file)
+2. Add it to `tools/`
+3. Add a row to the **Tools** table in this README
+
+### Adding a Skill
+
+1. Write your skill (`.md` file)
+2. Add it to `skills/`
+3. Add a row to the **Skills** table in this README
+
+### Guidelines
+
+- **Test it first.** Make sure your contribution works on a current Open WebUI + Ollama setup before submitting.
+- **Use cloud models.** This repo targets Ollama cloud backends. If your model config references a cloud model, note which one.
+- **Keep tools self-contained.** Minimize external dependencies. Document any that are required.
+- **Name clearly.** Tool/skill names should say what they do. If they're built for a specific model, note that in the "Used by" column.
+- **Don't break existing configs.** If you're improving someone else's contribution, make sure it stays backwards compatible or call out the breaking change.
+
+### PR Format
+
+```
+## What
+[Model / Tool / Skill] — one-line description
+
+## Base model (if applicable)
+e.g. deepseek-v3.2:cloud
+
+## How to test
+Steps to verify it works
+```
+
+---
 
 ## Repo Structure
 
 ```
-├── axiom.json                          # Axiom model config (import to Open WebUI)
-├── sovereign.json                      # Sovereign model config (import to Open WebUI)
+├── axiom.json                          # Model config — import to Open WebUI
+├── sovereign.json                      # Model config — import to Open WebUI
 ├── tools/
 │   ├── sovereign_memory.py             # Persistent memory (SQLite + aiosqlite)
 │   ├── sovereign_clock.py              # Datetime awareness (stdlib only)
@@ -75,43 +170,8 @@ These are model-attached skills — Sovereign sees a lightweight manifest and la
     └── adaptive-explanation.md         # Expertise-calibrated explanations
 ```
 
-## Setup
+---
 
-### Import Models
+## License
 
-1. Open WebUI > **Workspace > Models > Import** (top right)
-2. Select `axiom.json` — creates the Axiom model
-3. Select `sovereign.json` — creates the Sovereign model
-
-### Install Sovereign's Tools
-
-1. Open WebUI > **Workspace > Tools > + Create a Tool**
-2. Paste contents of each file in `tools/`
-3. Save each tool
-4. Edit the Sovereign model > scroll to **Tools** > check all three
-5. Set `sovereign_memory.py`'s `db_path` valve if not running in Docker (default: `/app/backend/data/sovereign_memory.db`)
-
-### Install Sovereign's Skills
-
-1. Open WebUI > **Workspace > Skills > Import**
-2. Select each `.md` file in `skills/`
-3. Edit the Sovereign model > scroll to **skill binding** > attach all four
-
-### Requirements
-
-- [Open WebUI](https://github.com/open-webui/open-webui) v0.8.0+ (skills require v0.8.0)
-- Ollama with cloud model access configured
-- Cloud models pulled: `kimi-k2.5:cloud`, `deepseek-v3.2:cloud`
-
-## Axiom vs Sovereign — Which to Use
-
-| Situation | Use |
-|-----------|-----|
-| Quick code review, "what's wrong with this?" | **Axiom** |
-| Architecture decision with clear tradeoffs | **Axiom** |
-| Complex problem where you want reasoning shown | **Sovereign** |
-| Research where confidence calibration matters | **Sovereign** |
-| You want terse, opinionated, no-nonsense answers | **Axiom** |
-| You want the model to adapt to your level | **Sovereign** |
-| Teaching or explaining to mixed audiences | **Sovereign** |
-| "Just tell me the answer" | **Axiom** |
+MIT
