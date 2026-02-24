@@ -1,5 +1,5 @@
 ---
-name: Tool Orchestration
+name: Tool Orchestration - Sov
 description: Decision framework for when and how to use Sovereign's tools — memory (remember/recall/forget), clock (current datetime), and web reader (deep page reading). Covers tool selection, chaining patterns, and when to reason without tools. Load when you're unsure whether a tool would help or when a task might benefit from combining multiple tools.
 ---
 

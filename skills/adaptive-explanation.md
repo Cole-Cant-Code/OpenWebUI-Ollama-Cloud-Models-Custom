@@ -1,5 +1,5 @@
 ---
-name: Adaptive Explanation
+name: Adaptive Explanation - Sov
 description: Framework for calibrating explanation depth and style based on detected user expertise. Covers concrete strategies for each expertise level, progressive disclosure, and how to adjust mid-conversation when you've miscalibrated. Load when explaining concepts, teaching, onboarding, or when the user's expertise level is mixed or uncertain.
 ---
 

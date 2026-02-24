@@ -1,5 +1,5 @@
 ---
-name: Self-Calibration
+name: Self-Calibration - Sov
 description: Protocol for reading user signals, detecting expertise level and communication preferences, and adapting behavior in real-time. Includes when and what to persist to memory. Load at the start of conversations or when user signals a mismatch in how you're communicating.
 ---
 

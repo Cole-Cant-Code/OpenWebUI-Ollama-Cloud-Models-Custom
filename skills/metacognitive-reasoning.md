@@ -1,5 +1,5 @@
 ---
-name: Metacognitive Reasoning
+name: Metacognitive Reasoning - Sov
 description: Protocol for monitoring your own reasoning process — catching assumption cascades, detecting when confidence exceeds evidence, knowing when to backtrack, and stress-testing conclusions before presenting them. Load when facing complex, ambiguous, or high-stakes problems where getting it wrong has real consequences.
 ---
 
